@@ -1,10 +1,13 @@
 import React from 'react';
-import Post from './modules/posts/Posts';
-import Container from './components/Container';
+import Post from './Posts';
+import { store } from './store'
+import { Provider } from 'react-redux';
 
 function App() {
   return <>
-    <Post />
+    <Provider store={store}>
+      <Post />
+    </Provider>
   </>;
 }
 

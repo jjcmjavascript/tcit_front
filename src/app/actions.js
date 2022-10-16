@@ -1,0 +1,70 @@
+import postService from './services/postsService';
+import { setLoading , cleanInputs} from './features/posts/formSlice';
+
+export const initPosts = () => {
+    return async (dispatch) => {
+        try{
+            const posts = await postService.findAll();
+
+            dispatch({
+                type: 'posts/setPosts',
+                payload: posts
+            });
+        }
+        catch(e) {
+            const errors = e.response.data.errors || [e.response.data.message]; 
+            
+            dispatch({
+                type: 'errors/setErrors',
+                payload: errors,
+            });
+        }
+    };
+}
+
+export const createPost = (newPost) => {
+    return async (dispatch) => {
+        try{
+            dispatch(setLoading(true))
+            
+            const post = await postService.create(newPost);
+
+            dispatch({
+                type: 'posts/setPost',
+                payload: post
+            });
+
+            dispatch(cleanInputs());
+        }
+        catch(e) {
+            const errors = e.response.data.errors || [e.response.data.message];
+            dispatch({
+                type: 'errors/setErrors',
+                payload: errors,
+            });
+        }
+        finally{
+            dispatch(setLoading(false))
+        }
+    };
+}   
+
+export const deletePost = (postId) => {
+    return async (dispatch) => {
+        try{
+            await postService.destroy(postId);
+
+            dispatch({
+                type: 'posts/destroyPost',
+                payload: postId
+            });
+        }
+        catch(e) {
+            const errors = e.response.data.errors || [e.response.data.message];
+            dispatch({
+                type: 'errors/setErrors',
+                payload: errors,
+            });
+        }
+    };
+}   
