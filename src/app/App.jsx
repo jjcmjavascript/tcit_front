@@ -1,6 +1,6 @@
 import React from 'react';
 import Post from './Posts';
-import { store } from './store'
+import { store } from './providers/store'
 import { Provider } from 'react-redux';
 
 function App() {
