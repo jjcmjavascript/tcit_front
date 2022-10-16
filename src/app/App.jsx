@@ -1,5 +1,5 @@
 import React from 'react';
-import Post from './Posts';
+import Post from './modules/posts/Posts';
 import { store } from './providers/store'
 import { Provider } from 'react-redux';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Table({className, headClassName, tableHeader, children}) {
+export default function Table({ className, headClassName, tableHeader, children }) {
     return <>
         <table className={className}>
             <thead className={headClassName}>

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    isLoading : false, 
-    name : '',
+    isLoading: false,
+    name: '',
     description: '',
 }
 
@@ -10,33 +10,33 @@ export const formSlice = createSlice({
     name: 'form',
     initialState,
     reducers: {
-        setName(state, action){
+        setName(state, action) {
             return {
                 ...state,
-                name : action.payload
+                name: action.payload
             }
         },
-        setDescription(state, action){
+        setDescription(state, action) {
             return {
                 ...state,
-                description : action.payload
+                description: action.payload
             }
         },
-        setLoading(state, action){
+        setLoading(state, action) {
             return {
                 ...state,
-                isLoading : action.payload
+                isLoading: action.payload
             }
         },
-        cleanInputs(state, _){
+        cleanInputs(state, _) {
             return {
-                ...state, 
-                name : '',
+                ...state,
+                name: '',
                 description: '',
             }
         }
     }
-}); 
+});
 
 export const { setName, setDescription, setLoading, cleanInputs } = formSlice.actions;
 

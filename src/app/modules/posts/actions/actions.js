@@ -1,5 +1,5 @@
-import postService from './services/postsService';
-import { setLoading , cleanInputs} from './features/posts/formSlice';
+import postService from '../../../services/postsService';
+import { setLoading , cleanInputs} from '../features/formSlice';
 
 export const initPosts = () => {
     return async (dispatch) => {
