@@ -1,9 +1,10 @@
 import postService from '../../../services/postsService';
-import { setLoading , cleanInputs} from '../features/formSlice';
+import { setLoading, cleanInputs } from '../features/formSlice';
+import errorsFormater from '../../../utils/errorsFormater';
 
 export const initPosts = () => {
     return async (dispatch) => {
-        try{
+        try {
             const posts = await postService.findAll();
 
             dispatch({
@@ -11,9 +12,9 @@ export const initPosts = () => {
                 payload: posts
             });
         }
-        catch(e) {
-            const errors = e.response.data.errors || [e.response.data.message]; 
-            
+        catch (e) {
+            const errors = errorsFormater(e);
+
             dispatch({
                 type: 'errors/setErrors',
                 payload: errors,
@@ -24,9 +25,9 @@ export const initPosts = () => {
 
 export const createPost = (newPost) => {
     return async (dispatch) => {
-        try{
+        try {
             dispatch(setLoading(true))
-            
+
             const post = await postService.create(newPost);
 
             dispatch({
@@ -36,22 +37,23 @@ export const createPost = (newPost) => {
 
             dispatch(cleanInputs());
         }
-        catch(e) {
-            const errors = e.response.data.errors || [e.response.data.message];
+        catch (e) {
+            const errors = errorsFormater(e);
+
             dispatch({
                 type: 'errors/setErrors',
                 payload: errors,
             });
         }
-        finally{
+        finally {
             dispatch(setLoading(false))
         }
     };
-}   
+}
 
 export const deletePost = (postId) => {
     return async (dispatch) => {
-        try{
+        try {
             await postService.destroy(postId);
 
             dispatch({
@@ -59,8 +61,9 @@ export const deletePost = (postId) => {
                 payload: postId
             });
         }
-        catch(e) {
-            const errors = e.response.data.errors || [e.response.data.message];
+        catch (e) {
+            const errors = errorsFormater(e);
+
             dispatch({
                 type: 'errors/setErrors',
                 payload: errors,
